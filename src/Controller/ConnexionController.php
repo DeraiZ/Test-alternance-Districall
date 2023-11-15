@@ -1,0 +1,58 @@
+<?php
+
+namespace App\Controller;
+
+use App\Entity\User;
+use App\Form\UserType;
+use App\Repository\UserRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+
+class ConnexionController extends AbstractController
+{
+    #[Route('/connexion', name: 'connexion')]
+    public function connexion(EntityManagerInterface $entityManager,Request $request ,UserRepository $usersRepository): Response
+    {
+        $user = new User();
+        $id=0;
+
+        $var='';
+        $form = $this->createForm(UserType::class, $user);
+        $form->handleRequest($request);
+        if ($form->isSubmitted()){
+            $mail = $form['email']->getData();
+            $repo = $entityManager -> getRepository(User::class);
+            $all = $repo->findAll();
+            $pass = $form['password']->getData();
+
+            while ($id < count($all)){
+                $email = $repo->findAll()[$id]->getEmail();
+                if ($mail == $email){
+                    $pwd = $repo->findAll()[$id]->getPassword();
+                    if ($pass == $pwd){;
+                        $var = 'ok';
+                        break;
+                    } else{
+                        $var = 'E-mail ou mot de passe incorrecte';
+                        var_dump($pwd);
+                        break;
+                    }
+                }elseif ($mail != $email){
+                    $var = 'E-mail ou mot de passe incorrecte';
+                    $id+=1;
+                }
+            }}
+
+
+
+
+        return $this->render('connexion/index.html.twig', [
+            'controller_name' => 'ConnexionController',
+            'form' => $form,
+            'user' => $var,
+            "id" => $id
+        ]);
+    }}

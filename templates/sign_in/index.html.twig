@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+    <form class="form_container" enctype="multipart/form-data" method="post">
+        <div class="userEmail">
+            {{ form_label(form.email, 'Mail' ) }}
+            {{ form_widget(form.email) }}
+        </div>
+        <div class="userPassword">
+            {{ form_label(form.password, 'Mot de passe' ) }}
+            {{ form_widget(form.password) }}
+        </div>
+        <div class="userPassword">
+            {{ form_label(form.age, 'Votre âge' ) }}
+            {{ form_widget(form.age) }}
+        </div>
+        <div class="userPassword">
+            {{ form_label(form.sex, 'Sexe' ) }}
+            {{ form_widget(form.sex) }}
+        </div>
+        <div class="conexion-btn">
+            <a href="http://localhost:8001/connexion" type="submit" class="btn btn-dark send_btn">Sign In</a>
+        </div>
+    </form>
+
+{% endblock %}
+

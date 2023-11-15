@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ConnexionController!{% endblock %}
+
+{% block body %}
+    <form class="form_container" enctype="multipart/form-data" method="post">
+        <div class="userEmail">
+            {{ form_label(form.email, 'Mail' ) }}
+            {{ form_widget(form.email) }}
+        </div>
+        <div class="userPassword">
+            {{ form_label(form.password, 'Mot de passe' ) }}
+            {{ form_widget(form.password) }}
+        </div>
+        <div class="conexion-btn">
+            <a href="http://localhost:8001/home" type="submit" class="btn btn-primary">Sign In</a>
+        </div>
+    </form>
+
+{% endblock %}
