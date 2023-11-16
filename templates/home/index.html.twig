@@ -1,13 +1,30 @@
+
 {% extends 'base.html.twig' %}
 
 {% block title %}HomeController!{% endblock %}
 
 {% block body %}
 
+    <nav class="navbar">
+        <button class="{{ hidden }} connexion_btn " onclick="window.location='/connexion'">Connexion</button>
+    </nav>
 
-<div class="example-wrapper">
-    <h1 class="home_title">Bienvenue sur notre Blog </h1>
+    <div class="example-wrapper">
 
-    <h2 class="excuser-nous">Malheuresement celui-ci n'est que dans ca phase de développement nous vous tiendrons au courant de l'avancer du projet</h2>
-</div>
+        <h1 class="home_title">Bienvenue sur notre Blog </h1>
+
+        <h2 class="excuser-nous">Malheuresement celui-ci n'est que dans sa phase de développement nous vous tiendrons au courant de l'avancer du projet</h2>
+        <div class="list_article">
+        {% for article in articles %}
+        <div class="article article{{ article.id }}">
+            <h3 class="name">{{ article.name }}</h3>
+            <p class="description">{{ article.description }}</p>
+            <p class="content">{{ article.content }}</p>
+            <p class="date">{{ date }}</p>
+            <img alt="{{ article.image }}" src="data:image/png;base64,{{ article.image}})"/>
+        </div>
+        {% endfor %}
+        </div>
+    </div>
+    <button class="new_article" type="button" onclick="window.location='/create_article'">+</button>
 {% endblock %}

@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello CreateBlogController!{% endblock %}
+
+{% block body %}
+<div class="new_article_form">
+    <form class="form_container" enctype="multipart/form-data" method="post">
+        <div class="form newArticle name">
+            {{ form_label(form.name, 'Name' ) }}
+            {{ form_widget(form.name) }}
+        </div>
+        <div class="newArticle desc">
+            {{ form_label(form.description, 'Description' ) }}
+            {{ form_widget(form.description) }}
+        </div>
+        <div class="newArticle content">
+            {{ form_label(form.content, 'Contenu' ) }}
+            {{ form_widget(form.content) }}
+        </div>
+        <div class="newArticle Image">
+            <label for="image">Image</label>
+            <input id="image" name='image' placeholder="Image" type="file"/>
+        </div>
+        <div class="conexion-btn">
+            <button type="submit" class="post btn btn-dark send_btn">Post Article</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

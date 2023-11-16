@@ -25,21 +25,32 @@ class SignInController extends AbstractController
         #création d'un formulaire d'inscription
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
-
         #verification de la submition et la validité du formulaire
         if ($form->isSubmitted()  && $form->isValid()) {
-            #faire le vide de la variable $user
             dump($user);
+            $mail = $form['email']->getData();
+            $pwd = $form['password']->getData();
+            $age = $form['age']->getData();
+            $sexe = $form['sex']->getData();
+            $user->setEmail($mail);
+            $user->setPassword($pwd);
+            $user->setAge($age);
+            $user->setSex($sexe);
             #gérer l'instance de la variable $user
             $entityManager->persist($user);
+
             #envoie des informations de la variables #user dans la base de données
             $entityManager-> flush();
-            $this->redirect('http://localhost:8001/connexion');
+            return $this->redirect($this->generateUrl('connexion'));
+
+        }else{
+            $var = 'Pas passer';
         }
 
 
         return $this->render('sign_in/index.html.twig', [
             'form' => $form,
+            'var' => $var,
         ]);
     }
 }

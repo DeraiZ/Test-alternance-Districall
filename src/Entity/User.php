@@ -113,4 +113,12 @@ class User
     {
         return $this->sex;
     }
+
+    /**
+     * @return int
+     */
+    public function getId(): int
+    {
+        return $this->id;
+    }
 }

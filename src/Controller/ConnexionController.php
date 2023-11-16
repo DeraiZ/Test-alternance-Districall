@@ -18,7 +18,6 @@ class ConnexionController extends AbstractController
     {
         $user = new User();
         $id=0;
-
         $var='';
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
@@ -27,17 +26,20 @@ class ConnexionController extends AbstractController
             $repo = $entityManager -> getRepository(User::class);
             $all = $repo->findAll();
             $pass = $form['password']->getData();
-
             while ($id < count($all)){
                 $email = $repo->findAll()[$id]->getEmail();
+                $userid = $repo->findAll()[$id]->getID();
                 if ($mail == $email){
                     $pwd = $repo->findAll()[$id]->getPassword();
-                    if ($pass == $pwd){;
+                    if ($pass == $pwd){
                         $var = 'ok';
-                        break;
+                        setcookie('LOGGED_IN', $userid,[
+                            'expires' => time() + 24*3600
+                        ]);
+
+                        return $this->redirect($this->generateUrl('home'));
                     } else{
                         $var = 'E-mail ou mot de passe incorrecte';
-                        var_dump($pwd);
                         break;
                     }
                 }elseif ($mail != $email){
